@@ -1,0 +1,76 @@
+name: BellyDelivery
+description: A new Flutter project.
+
+version: 1.0.0+1
+ 
+
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
+  cupertino_icons: ^0.1.2
+  cached_network_image: ^2.0.0-rc
+  shared_preferences:
+  url_launcher: ^5.4.2
+  pin_code_text_field: ^1.5.0
+  google_maps_flutter: ^0.5.28+1
+  location: ^2.3.5
+  flutter_local_notifications: ^1.1.1
+  flutter_ringtone_player:
+  carousel_slider: ^1.4.1
+  cloud_firestore: 
+  background_location: ^0.0.9+3
+  provider: ^4.0.4
+  image_picker: ^0.6.2+3
+  connectivity: 0.4.6+2
+  flutter_html: ^0.11.1
+  firebase_messaging: ^6.0.9
+  firebase_core: ^0.5.0
+    # git:
+    #   url: https://github.com/MaikuB/flutterfire.git
+    #   path: packages/firebase_messaging
+
+dev_dependencies:
+  flutter_launcher_icons: "^0.7.3"
+  flutter_test:
+    sdk: flutter
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "images/icon.png"   
+
+flutter:
+
+  uses-material-design: true
+
+  assets:
+    - images/
+    - images/icons/
+
+  fonts:
+    - family: MontserratRegular
+      fonts:
+        - asset: fonts/montserrat.regular.ttf
+          weight: 700
+    - family: MontserratMedium
+      fonts:
+        - asset: fonts/Montserrat-Medium.ttf
+          weight: 700
+    - family: NotoSansJP
+      fonts:
+        - asset: fonts/NotoSansJP-Bold.otf
+        - asset: fonts/NotoSansJP-Light.otf
+        - asset: fonts/NotoSansJP-Medium.otf
+        - asset: fonts/NotoSansJP-Regular.otf
+          weight: 700
+   
+  #
+  # For details regarding fonts from package dependencies,
+  # see https://flutter.dev/custom-fonts/#from-packages
