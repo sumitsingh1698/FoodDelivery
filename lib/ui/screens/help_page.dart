@@ -27,6 +27,7 @@ class _HelpPageState extends State<HelpPage> {
 
   void getData() async {
     data = await _otherContentsData.getHelpContents();
+
     if (data != null)
       setState(() {
         _dataLoaded = true;
@@ -72,47 +73,50 @@ class _HelpPageState extends State<HelpPage> {
           child: Padding(
             padding: EdgeInsets.only(
                 left: 24.0, right: 24.0, top: 20.0, bottom: 20.0),
-            child: Text(data.desc,
+            child: Text(data.desc != null ? data.desc : "",
                 style: CustomFontStyle.mediumTextStyle(greyColor)),
           ),
         ),
-        ListView.builder(
-          shrinkWrap: true,
-          itemCount: data.levelone.length,
-          itemBuilder: (BuildContext context, int index) {
-            return Container(
-                child: ExpansionTile(
-                  title: Text(
-                    data.levelone[index].title,
-                    style: CustomFontStyle.mediumTextStyle(blackColor),
-                  ),
-                  trailing: Icon(Icons.keyboard_arrow_down),
-                  backgroundColor: whiteColor,
-                  children: [
-                    Column(
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(
-                            left: 8.0,
-                            right: 8.0,
-                          ),
-                          child: Html(
-                              data: """${data.levelone[index].content} """),
+        data.levelone == null
+            ? Container()
+            : ListView.builder(
+                shrinkWrap: true,
+                itemCount: data.levelone.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Container(
+                      child: ExpansionTile(
+                        title: Text(
+                          data.levelone[index].title,
+                          style: CustomFontStyle.mediumTextStyle(blackColor),
                         ),
-                      ],
-                    ),
-                  ],
-                ),
-                decoration: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(
-                      color: lightGrey,
-                      width: 1.0,
-                    ),
-                  ),
-                ));
-          },
-        ),
+                        trailing: Icon(Icons.keyboard_arrow_down),
+                        backgroundColor: whiteColor,
+                        children: [
+                          Column(
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                  left: 8.0,
+                                  right: 8.0,
+                                ),
+                                child: Html(
+                                    data:
+                                        """${data.levelone[index].content} """),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                      decoration: BoxDecoration(
+                        border: Border(
+                          bottom: BorderSide(
+                            color: lightGrey,
+                            width: 1.0,
+                          ),
+                        ),
+                      ));
+                },
+              ),
       ],
     );
   }

@@ -467,6 +467,9 @@ class BucketDetailPageState extends State<BucketDetailPage> {
                       padding: const EdgeInsets.all(8.0),
                       child: InkWell(
                         onTap: () async {
+                          print("cancel click");
+                          print("should cancel  ${_order.id}");
+
                           bool _shouldCancel = await showDialog(
                             context: context,
                             barrierDismissible: false,
@@ -496,6 +499,7 @@ class BucketDetailPageState extends State<BucketDetailPage> {
                                   ));
                             },
                           );
+                          print("should cancel $_shouldCancel ${_order.id}");
                           if (_shouldCancel) {
                             OrderDeliveryResponse _orderCancelledRes =
                                 await _bucketDetailDataSource

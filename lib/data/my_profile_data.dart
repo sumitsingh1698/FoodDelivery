@@ -52,6 +52,7 @@ class ProfileDataSource {
       token,
     )
         .then((dynamic res) async {
+      print(res.toString());
       return res['status'];
     });
   }

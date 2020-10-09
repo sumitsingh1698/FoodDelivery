@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:background_location/background_location.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -59,7 +58,7 @@ class HomePageState extends State<HomePage> {
   final _key = new GlobalKey<ScaffoldState>();
   GlobalKey<BucketDetailPageState> _keyBucketDetailState = GlobalKey();
   bool displayDelivery = false;
-  bool verify = false;
+  bool verify = true;
 
   @override
   void initState() {
@@ -119,8 +118,19 @@ class HomePageState extends State<HomePage> {
       print(error);
       return null;
     }
+    getVeficationStatusUpdate();
     getUserOnlineStatus();
     getInitTrackingData();
+  }
+
+  void getVeficationStatusUpdate() async {
+    var response = await _homeDataSource.veficationUpdate(token);
+    if (!response) {
+      print('not verifed');
+      verify = false;
+    } else {
+      print('verfied');
+    }
   }
 
   void getInitTrackingData() async {
@@ -151,7 +161,7 @@ class HomePageState extends State<HomePage> {
     data = await _homeDataSource.getNewOrders(token);
     print('data data data ${data.count}');
     setState(() {
-      if (data.count > 0)
+      if (data.count != null && data.count > 0)
         _isBucketAvailable = true;
       else
         _isBucketAvailable = false;

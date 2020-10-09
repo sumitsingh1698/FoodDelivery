@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:BellyDelivery/constants/Constants.dart';
 import 'package:BellyDelivery/constants/String.dart';
 import 'dart:ui';
 import 'package:BellyDelivery/constants/Color.dart';
@@ -11,7 +10,6 @@ import 'package:BellyDelivery/models/university_model.dart';
 import 'package:BellyDelivery/models/user_signup_model.dart';
 import 'package:BellyDelivery/ui/screens/otp_signup_verification.dart';
 import 'package:BellyDelivery/ui/widgets/custom_close_app_bar.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/gestures.dart';
 import 'package:BellyDelivery/utils/show_snackbar.dart';
 

@@ -119,7 +119,9 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
     if (_passwordController.text != "") {
       bool passFlag = await profileData.changePassword(
           token, _passwordController.text, _newPasswordController.text);
+      print(passFlag);
       if (passFlag) {
+        print("here");
         var res = await addNewItem({
           "first_name": _nameController.text,
           "last_name": _lastnameController.text,
@@ -127,17 +129,22 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
           "phone": _mobileController.text,
         }, _image);
         Utils.showSnackBar(_key, profileUpdated);
-      } else
+      } else {
+        print("here 1");
         Utils.showSnackBar(_key, passwordDoNotMatch);
+      }
     } else
       var res = await addNewItem({
         "first_name": _nameController.text,
         "last_name": _lastnameController.text,
         "email_address": _emailController.text,
         "phone": _mobileController.text,
-      }, _image);
-    Utils.showSnackBar(_key, profileUpdated);
+      }, _image)
+          .then((value) => print(value.toString()));
+
+    // Utils.showSnackBar(_key, profileUpdated);
     var _response = await profileData.getMyProfileData(token);
+
     if (_response[0] == true) {
       _userResponse = _response[1];
       Provider.of<UserModel>(context, listen: false).updateUser(_userResponse);
@@ -165,7 +172,9 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
     var mulipartFile;
     var request = new http.MultipartRequest("PUT",
         Uri.parse(saveEditProfileUrl + _userResponse.id.toString() + "/"));
+
     if (file != null) {
+      print("file");
       stream = new http.ByteStream(DelegatingStream.typed(file.openRead()));
       length = await file.length();
       mulipartFile = new http.MultipartFile('profile_pic', stream, length,
@@ -179,12 +188,16 @@ class _ProfileEditPageState extends State<ProfileEditPage> {
     // request.fields['campus'] = selectedCampus.name;
     request.fields['phone'] = body['phone'];
     if (file != null) {
+      print("file 2");
+
       request.files.add(mulipartFile);
     }
-
+    print(request.fields.toString());
     http.StreamedResponse postresponse = await request.send();
+
     if (postresponse.statusCode == 200) {
       var res = await http.Response.fromStream(postresponse);
+      print("res" + res.toString());
       return json.decode(res.body);
     } else {
       throw new Exception("Error while fetching data");

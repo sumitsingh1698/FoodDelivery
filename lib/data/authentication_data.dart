@@ -105,6 +105,7 @@ class AuthDataSource {
       'phone': phone,
       'password': password,
     };
+    print(body);
     return _netUtil
         .loginPasswordAuthentication(loginAuthUrl, body)
         .then((dynamic res) async {

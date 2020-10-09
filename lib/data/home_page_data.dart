@@ -17,6 +17,7 @@ class HomeDataSource {
   static final isTrackingEnabledUrl = baseUrl + "tracking/";
   static final checkTrackingUrl = baseUrl + "checktracking/";
   static final shareLocationStatusChangeUrl = baseUrl + "savelocationstatus/";
+  static final getVerificationUpdateUrl = baseUrl + "checkverified/";
 
   Future<BucketNotificationResponse> getNewOrders(token) {
     return _netUtil
@@ -91,8 +92,14 @@ class HomeDataSource {
   Future<OrderDeliveryResponse> orderCancelledStatusChange(
       token, bucketId, orderId) {
     String url = orderCancelUrl + "?bucket_id=$bucketId" + "&order_id=$orderId";
-    return _netUtil.deliveryStatusChange(url, token).then((dynamic res) async {
+    print(url);
+    print(token);
+    var data = {'order_id': orderId};
+    return _netUtil
+        .deliveryStatusChange(url, token, data)
+        .then((dynamic res) async {
       OrderDeliveryResponse response = OrderDeliveryResponse.fromJson(res);
+      print(response);
       return response;
     });
   }
@@ -127,6 +134,20 @@ class HomeDataSource {
       } else {
         print("tracking share location $res");
         return [false, res['message']];
+      }
+    });
+  }
+
+  Future<bool> veficationUpdate(token) {
+    print("toke  $token ");
+    String url = getVerificationUpdateUrl;
+    return _netUtil.getVerficationUpdate(url, token).then((dynamic res) async {
+      if (res['status']) {
+        print("true");
+        return res['verified'];
+      } else {
+        print("false");
+        return false;
       }
     });
   }

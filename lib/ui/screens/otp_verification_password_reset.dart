@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pin_code_text_field/pin_code_text_field.dart';
-import 'package:BellyDelivery/Constants/Color.dart';
+import 'package:BellyDelivery/constants/Color.dart';
 import 'package:BellyDelivery/constants/Style.dart';
 import 'package:BellyDelivery/constants/String.dart';
 import 'package:BellyDelivery/data/authentication_data.dart';

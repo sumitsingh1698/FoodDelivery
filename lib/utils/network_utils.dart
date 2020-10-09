@@ -146,14 +146,19 @@ class NetworkUtil {
     return parsed;
   }
 
-  Future<dynamic> deliveryStatusChange(String url, token) async {
+  Future<dynamic> deliveryStatusChange(String url, token, data) async {
     Map<String, String> requestHeaders = {
       'Content-type': 'application/json',
       'Authorization': "Token " + token
     };
-    var response = await http.post(url, headers: requestHeaders);
+    print(data);
+
+    var _body = json.encode(data);
+
+    var response = await http.post(url, headers: requestHeaders, body: _body);
     final int statusCode = response.statusCode;
-    print(response.body.toString());
+    print("response");
+    print("response : +" + response.body.toString());
     if (statusCode < 200 || statusCode > 400 || json == null) {
       throw new Exception("Error while fetching data");
     }
@@ -231,6 +236,20 @@ class NetworkUtil {
     final int statusCode = response.statusCode;
     if (statusCode < 200 || statusCode > 400 || json == null) {
       throw new Exception("Error while fetching data");
+    }
+    final Map parsed = json.decode(utf8.decode(response.bodyBytes));
+    return parsed;
+  }
+
+  Future<dynamic> getVerficationUpdate(String url, String token) async {
+    Map<String, String> requestHeaders = {
+      'Content-type': 'application/json',
+      'Authorization': "Token " + token
+    };
+    var response = await http.get(url, headers: requestHeaders);
+    final int statusCode = response.statusCode;
+    if (statusCode < 200 || statusCode > 400 || json == null) {
+      throw new Exception("Error while getting Verification Status");
     }
     final Map parsed = json.decode(utf8.decode(response.bodyBytes));
     return parsed;

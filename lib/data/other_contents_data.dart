@@ -10,10 +10,13 @@ class OtherContentsData {
   static final String paymentContents = baseUrl + "payment/";
 
   Future<OtherContentModel> getHelpContents() {
+    print("getHelpContents");
     return _netUtil.getUniversities(helpContents).then((dynamic res) async {
       OtherContentModel response;
+      print("res" + res.toString());
       if (res['results'].isNotEmpty) {
         response = OtherContentModel.fromJson(res['results'][0]);
+        print(response);
       }
       return response;
     });
