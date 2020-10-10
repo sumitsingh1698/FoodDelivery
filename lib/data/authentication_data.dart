@@ -101,8 +101,9 @@ class AuthDataSource {
   }
 
   Future<bool> loginPasswordAuthentication(phone, password) {
+    print(phone);
     Map<String, String> body = {
-      'phone': phone,
+      'phone': "+91" + phone,
       'password': password,
     };
     print(body);

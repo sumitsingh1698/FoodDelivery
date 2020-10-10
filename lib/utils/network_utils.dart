@@ -123,6 +123,7 @@ class NetworkUtil {
     };
     var response = await http.get(url, headers: requestHeaders);
     final int statusCode = response.statusCode;
+    print(response);
     if (statusCode < 200 || statusCode > 400 || json == null) {
       final Map parsed = json.decode(utf8.decode(response.bodyBytes));
       print(parsed);

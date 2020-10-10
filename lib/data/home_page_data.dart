@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 import 'package:BellyDelivery/models/bucket_detail_response.dart' as detail;
 import 'package:BellyDelivery/models/bucket_notification_response.dart';
 import 'package:BellyDelivery/models/order_delivery_response.dart';
@@ -23,6 +24,8 @@ class HomeDataSource {
     return _netUtil
         .getNewOrders(newBucketList, token)
         .then((dynamic res) async {
+      print("ress $res");
+
       BucketNotificationResponse response =
           BucketNotificationResponse.fromJson(res);
       print(res);
@@ -55,6 +58,7 @@ class HomeDataSource {
     return _netUtil
         .getNewOrders(userOnlineStatusUrl, token)
         .then((dynamic res) async {
+      log(res.toString());
       if (res['status']) {
         return true;
       } else {
