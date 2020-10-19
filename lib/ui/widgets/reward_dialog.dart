@@ -43,10 +43,13 @@ Widget _buildDialog(context, int _reward) {
               child: FlatButton(
                   color: blackColor,
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => HomePage()),
-                    );
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(builder: (context) => HomePage()),
+                    // );
+                    print("reward Return Pressed");
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                        '/homepage', (Route<dynamic> route) => false);
                   },
                   child: Text(
                     "Return",

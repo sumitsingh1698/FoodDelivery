@@ -65,6 +65,7 @@ class HomePageState extends State<HomePage> {
     super.initState();
     getFCMToken();
     getSharedPrefs();
+
     var android = new AndroidInitializationSettings('mipmap/ic_launcher');
     var ios = new IOSInitializationSettings();
     var platform = new InitializationSettings(android, ios);
@@ -112,7 +113,11 @@ class HomePageState extends State<HomePage> {
     try {
       _isBucketInHand = prefs.getBool('bucketInHand');
       token = prefs.getString('token');
+
       verify = prefs.getBool('verify');
+      if (!verify) {
+        verify = await _homeDataSource.veficationUpdate(token);
+      }
       print('Token of belly Boy $token');
     } on Exception catch (error) {
       print(error);
@@ -134,15 +139,15 @@ class HomePageState extends State<HomePage> {
   }
 
   void getInitTrackingData() async {
-    var response = await _homeDataSource.checkTrackingEnabled(token);
-    if (response['tracking_status']) {
-      print('trackinggggggggggg trackingggggggg');
-      if (!response['sharing_status']) showTrackingDialog(context);
-      if (response['order_id'] != null)
-        enableBackgroundTracking(response['order_id']);
-    } else {
-      print('unUNUNkinggggggggggg trackingggggggg');
-    }
+    // var response = await _homeDataSource.checkTrackingEnabled(token);
+    // if (response['tracking_status']) {
+    //   print('trackinggggggggggg trackingggggggg');
+    //   if (!response['sharing_status']) showTrackingDialog(context);
+    //   if (response['order_id'] != null)
+    //     enableBackgroundTracking(response['order_id']);
+    // } else {
+    //   print('unUNUNkinggggggggggg trackingggggggg');
+    // }
   }
 
   void getUserOnlineStatus() async {
@@ -159,6 +164,7 @@ class HomePageState extends State<HomePage> {
         _isLoading = true;
       });
     data = await _homeDataSource.getNewOrders(token);
+
     print('data data data ${data.count}');
     setState(() {
       if (data.count != null && data.count > 0)
@@ -243,7 +249,8 @@ class HomePageState extends State<HomePage> {
 
     var res =
         await _homeDataSource.startStopLocationSharing(token, bucketId, "True");
-    if (res[0]) {
+    if (true) {
+      // res[0]
       saveLastLocationTime();
       print('enteeeeeeeeeeredddd');
       BackgroundLocation.startLocationService();
@@ -288,6 +295,7 @@ class HomePageState extends State<HomePage> {
           _buildGoogleMap(context),
           _earningsBar(),
           _buildVerify(),
+          _refreshButton(),
           _onlineOfflineButton(),
           _buildOrderCards()
         ],
@@ -537,9 +545,10 @@ class HomePageState extends State<HomePage> {
                           if (!_bucketData.bucketAccepted) {
                             bool _bucketAccepted = await _homeDataSource
                                 .bucketStatusChange(token, _bucketData.id);
-                            if (_bucketAccepted)
+                            if (_bucketAccepted) {
                               getNotificationData();
-                            else {
+                              enableBackgroundTracking(_bucketData.id);
+                            } else {
                               getNotificationData();
                               showDialog(
                                   context: context,
@@ -595,6 +604,35 @@ class HomePageState extends State<HomePage> {
                   )),
             ),
           )),
+    );
+  }
+
+  Widget _refreshButton() {
+    return Positioned(
+      bottom: _isBucketAvailable ? 360 : 100,
+      left: 10,
+      child: InkWell(
+        splashColor: disabledGrey,
+        onTap: () async {
+          getUserOnlineStatus();
+          getInitTrackingData();
+        },
+        child: Container(
+          width: 112.0,
+          height: 30.0,
+          child: new Container(
+            decoration: new BoxDecoration(
+                color: _onlineStatus ? blackColor : Colors.white,
+                borderRadius: new BorderRadius.all(const Radius.circular(8.0))),
+            child: Center(
+              child: Text(
+                refresh,
+                style: CustomFontStyle.smallTextStyle(greenBellyColor),
+              ),
+            ),
+          ),
+        ),
+      ),
     );
   }
 

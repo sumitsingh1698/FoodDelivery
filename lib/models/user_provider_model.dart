@@ -35,8 +35,11 @@ class UserModel with ChangeNotifier {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     try {
       String token = prefs.getString('token');
-      getMyProfileData(token);
-      getPendingCashData(token);
+      print("|$token|");
+      if (token != '') {
+        getMyProfileData(token);
+        getPendingCashData(token);
+      }
     } on Exception catch (error) {
       print(error);
       return null;

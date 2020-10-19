@@ -15,6 +15,7 @@ class ProfileDataSource {
     return _netUtil
         .getNewOrders(myProfileDataUrl, token)
         .then((dynamic res) async {
+      print("getMyProfileData $res");
       User response;
       if (res['results'].isNotEmpty) {
         response = User.fromJson(res['results'][0]);

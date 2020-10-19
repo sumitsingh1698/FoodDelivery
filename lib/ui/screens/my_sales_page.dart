@@ -202,10 +202,7 @@ class _MySalesPageState extends State<MySalesPage> {
                                   Expanded(
                                     child: ListView.builder(
                                         scrollDirection: Axis.vertical,
-                                        itemCount: data.buckets[index].order ==
-                                                null
-                                            ? 0
-                                            : data.buckets[index].order.length,
+                                        itemCount: 1,
                                         shrinkWrap: true,
                                         physics: ClampingScrollPhysics(),
                                         itemBuilder: (BuildContext context,
@@ -220,15 +217,13 @@ class _MySalesPageState extends State<MySalesPage> {
                                                 children: <Widget>[
                                                   Text(
                                                     "ID " +
-                                                        data.buckets[index]
-                                                            .order[i].orderNo,
+                                                        "${data.buckets[index].orderNo}",
                                                     style: CustomFontStyle
                                                         .regularFormTextStyle(
                                                             blackColor),
                                                   ),
                                                   Text(
-                                                    data.buckets[index].order[i]
-                                                        .restaurantName,
+                                                    "${data.buckets[index].restaurantName}",
                                                     style: CustomFontStyle
                                                         .regularFormTextStyle(
                                                             blackColor),

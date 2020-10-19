@@ -39,52 +39,31 @@ class SalesResponse {
 }
 
 class Buckets {
-  List<Order> order;
   double reward;
   String bucketAcceptedTime;
   String id;
+  String restaurantName;
+  String orderNo;
 
-  Buckets({this.order, this.reward, this.bucketAcceptedTime, this.id});
+  Buckets({this.orderNo, this.reward, this.bucketAcceptedTime, this.id});
 
   Buckets.fromJson(Map<String, dynamic> json) {
-    if (json['orderitems'] != null) {
-      order = new List<Order>();
-      json['orderitems'].forEach((v) {
-        order.add(new Order.fromJson(v));
-      });
-    }
     reward = json['reward'] == 0 ? 0 : json['reward'];
     bucketAcceptedTime = json['order_accepted_time'];
     id = json['id'];
+    restaurantName = json['restaurant_name'];
+    orderNo = json['order_no'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.order != null) {
-      data['order'] = this.order.map((v) => v.toJson()).toList();
-    }
+
     data['reward'] = this.reward;
     data['bucket_accepted_time'] = this.bucketAcceptedTime;
     data['id'] = this.id;
-    return data;
-  }
-}
-
-class Order {
-  String orderNo;
-  String restaurantName;
-
-  Order({this.orderNo, this.restaurantName});
-
-  Order.fromJson(Map<String, dynamic> json) {
-    orderNo = json['order_no'];
-    restaurantName = json['restaurant_name'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['order_no'] = this.orderNo;
     data['restaurant_name'] = this.restaurantName;
+    data['order_no'] = this.orderNo;
+
     return data;
   }
 }

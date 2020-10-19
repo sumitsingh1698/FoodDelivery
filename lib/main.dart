@@ -70,6 +70,9 @@ class MyAppState extends State<MyApp> {
           title: 'Belly Delivery',
           theme: ThemeData(
               platform: TargetPlatform.iOS, primarySwatch: Colors.blue),
+          routes: <String, WidgetBuilder>{
+            '/homepage': (BuildContext context) => new HomePage(),
+          },
         ));
   }
 }

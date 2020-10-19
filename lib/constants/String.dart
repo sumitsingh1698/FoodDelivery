@@ -18,7 +18,7 @@ const String deliveryCampus = "Campus";
 const String password = "Password ";
 const String confirmPassword = "Re-enter password";
 const String passwordShould8digits =
-    "*Password must be at least 1 character for each half-width alphabet and half-width number.\nPlease enter at least 8 characters including n.";
+    "*Please enter at least 8 characters including number.";
 const String passwordDoNotMatch = "The passwords do not match. ";
 const String noEmptyFields = "All input is required.";
 const String signUp = "Sign up";
@@ -65,6 +65,7 @@ const String accept = "Accept";
 const String offline = "Change to online";
 const String online = "Change to offline";
 const String reject = "Reject";
+const String refresh = "Refresh";
 
 // bucket details page
 const String thereAre = "*Order is ";

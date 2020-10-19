@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 import 'package:http/http.dart' as http;
 
 class NetworkUtil {
@@ -123,7 +124,7 @@ class NetworkUtil {
     };
     var response = await http.get(url, headers: requestHeaders);
     final int statusCode = response.statusCode;
-    print(response);
+    log(response.body.toString());
     if (statusCode < 200 || statusCode > 400 || json == null) {
       final Map parsed = json.decode(utf8.decode(response.bodyBytes));
       print(parsed);
